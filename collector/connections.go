@@ -1,8 +1,9 @@
-package main
+package collector
 
 import (
 	"context"
 	"fmt"
+	"github.com/pkg/errors"
 	"log"
 	"time"
 
@@ -40,61 +41,79 @@ type Connections struct {
 }
 
 var (
-	uploadTotalBytes   *prometheus.GaugeVec
-	downloadTotalBytes *prometheus.GaugeVec
-	activeConnections  *prometheus.GaugeVec
-
-	todoDownloadTotal *prometheus.CounterVec
+	uploadTotal         *prometheus.GaugeVec
+	downloadTotal       *prometheus.GaugeVec
+	activeConnections   *prometheus.GaugeVec
+	networkTrafficTotal *prometheus.CounterVec
 )
 
-func handleConnections() {
+type Connection struct {
+	connectionCache map[string]Connections
+}
+
+func (c *Connection) Name() string {
+	return "connections"
+}
+
+func (c *Connection) Collect(config CollectConfig) error {
 	ctx := context.Background()
-	conn, _, err := websocket.Dial(ctx, fmt.Sprintf("ws://%s%s?token=%s", CLASH_HOST, CONNECTIONS_PATH, CLASH_TOKEN), nil)
+	endpoint := fmt.Sprintf("ws://%s/connections", config.ClashHost)
+	if config.ClashToken != "" {
+		endpoint = fmt.Sprintf("%s?token=%s", endpoint, config.ClashToken)
+	}
+	conn, _, err := websocket.Dial(ctx, endpoint, nil)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("failed to dial: ", err)
 	}
 
 	conn.SetReadLimit(1024 * 1024)
-
-	connectionCache := make(map[string]float64)
 
 	defer conn.Close(websocket.StatusInternalError, "the sky is falling")
 	for {
 		var m message
 		err = wsjson.Read(ctx, conn, &m)
 		if err != nil {
-			log.Fatalf("wsjson.Read error: %v", err)
+			return errors.Wrap(err, "failed to read JSON message")
 		}
-		uploadTotalBytes.WithLabelValues().Set(float64(m.UploadTotal))
-		downloadTotalBytes.WithLabelValues().Set(float64(m.DownloadTotal))
+		uploadTotal.WithLabelValues().Set(float64(m.UploadTotal))
+		downloadTotal.WithLabelValues().Set(float64(m.DownloadTotal))
 		activeConnections.WithLabelValues().Set(float64(len(m.Connections)))
+
 		for _, connection := range m.Connections {
-			if _, ok := connectionCache[connection.ID]; !ok {
-				connectionCache[connection.ID] = 0
+			if _, ok := c.connectionCache[connection.ID]; !ok {
+				c.connectionCache[connection.ID] = Connections{
+					Upload:   0,
+					Download: 0,
+				}
 			}
 			destination := connection.Metadata.Host
 			if destination == "" {
 				destination = connection.Metadata.DestinationIP
 			}
-			todoDownloadTotal.WithLabelValues(connection.Metadata.SourceIP, destination, connection.Chains[0]).Add(float64(connection.Download) - connectionCache[connection.ID])
-			connectionCache[connection.ID] = float64(connection.Download)
+			if !config.CollectDest {
+				destination = ""
+			}
+			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, connection.Chains[0], "download").Add(float64(connection.Download) - float64(c.connectionCache[connection.ID].Download))
+			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, connection.Chains[0], "upload").Add(float64(connection.Upload) - float64(c.connectionCache[connection.ID].Upload))
+			c.connectionCache[connection.ID] = connection
 		}
+
 	}
 }
 
 func init() {
-	uploadTotalBytes = prometheus.NewGaugeVec(
+	uploadTotal = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
 			Namespace: "clash",
-			Name:      "upload_total_bytes",
+			Name:      "upload_bytes_total",
 			Help:      "Total upload bytes",
 		},
 		[]string{},
 	)
-	downloadTotalBytes = prometheus.NewGaugeVec(
+	downloadTotal = prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
 			Namespace: "clash",
-			Name:      "download_total_bytes",
+			Name:      "download_bytes_total",
 			Help:      "Total download bytes",
 		},
 		[]string{},
@@ -109,13 +128,17 @@ func init() {
 		[]string{},
 	)
 
-	todoDownloadTotal = prometheus.NewCounterVec(
+	networkTrafficTotal = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
 			Namespace: "clash",
-			Name:      "host_rule_download_total",
-			Help:      "Total download bytes by host rule",
+			Name:      "network_traffic_bytes_total",
+			Help:      "Total number of bytes downloaded/uploaded, categorized by source, destination, and policy.",
 		},
-		[]string{"source", "destination", "policy"},
+		[]string{"source", "destination", "policy", "type"},
 	)
-	prometheus.MustRegister(uploadTotalBytes, downloadTotalBytes, todoDownloadTotal)
+
+	prometheus.MustRegister(uploadTotal, downloadTotal, activeConnections, networkTrafficTotal)
+
+	c := &Connection{connectionCache: map[string]Connections{}}
+	register(c)
 }
