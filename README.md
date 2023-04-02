@@ -8,7 +8,7 @@ This is an exporter for Clash, for used by the [Prometheus](https://prometheus.i
 
 #### use by docker
 ```sh
-docker run -d --name clash-exporter -p 2112:2112 -e CLASH_HOST="${CLASH_HOST}" -e CLASH_TOKEN="$CLASH_TOKEN" zzde/clash-exporter:latest 
+docker run -d --name clash-exporter -p 2112:2112 -e CLASH_HOST="${CLASH_HOST}" -e CLASH_TOKEN="$CLASH_TOKEN" ghcr.io/zxh326/clash-exporter:latest 
 ```
 
 #### build your self
