@@ -6,8 +6,16 @@ This is an exporter for Clash, for used by the [Prometheus](https://prometheus.i
 
 ### Usage
 
-#### shell
+#### use by docker
 ```sh
+docker run -d --name clash-exporter -p 2112:2112 -e CLASH_HOST="${CLASH_HOST}" -e CLASH_TOKEN="$CLASH_TOKEN" zzde/clash-exporter:latest 
+```
+
+#### build your self
+```sh
+git clone https://github.com/zxh326/clash-exporter.git
+go build -v .
+
 export CLASH_HOST="http://"
 export CLASH_TOKEN="clash"
 
@@ -19,34 +27,6 @@ export CLASH_TOKEN="clash"
         Warning: collector destination if enabled, will generate a large number of metrics, which may put a lot of pressure on Prometheus.
   -port int
         port to listen on (default 2112)
-```
-
-#### use by docker
-```sh
-docker run -d --name clash-exporter -p 2112:2112 -e CLASH_HOST="${CLASH_HOST}" -e CLASH_TOKEN="$CLASH_TOKEN" zxh326/clash-exporter:latest 
-```
-
-#### use by systemctl
-```sh
-cat > /etc/systemd/system/clash-exporter.service << EOF
-[Unit]
-Description=Clash exporter
-After=network.target
-
-[Service]
-Type=simple
-Restart=always
-Environment="CLASH_HOST=127.0.0.1:9090"
-Environment="CLASH_TOKEN=clash"
-ExecStart=/root/clash-exporter -collectDest
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-systemctl daemon-reload
-systemctl enable clash-exporter
-systemctl start clash-exporter
 ```
 
 ####
@@ -72,6 +52,7 @@ You can import [clash-dashboard.json](./grafana/dashboard.json) to obtain the ex
 | Metric name                       | Metric type | Labels                                                              |
 |-----------------------------------|-------------|---------------------------------------------------------------------|
 | clash_download_bytes_total        | Gauge       |                                                                     |
+| clash_upload_bytes_total          | Gauge       |                                                                     |
 | clash_active_connections          | Gauge       |                                                                     |
 | clash_network_traffic_bytes_total | Counter     | `soruce`,`destination(if enabled)`,`policy`,`type(download,upload)` |
 
