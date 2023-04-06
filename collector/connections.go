@@ -3,20 +3,22 @@ package collector
 import (
 	"context"
 	"fmt"
-	"github.com/pkg/errors"
 	"log"
 	"time"
+
+	"github.com/pkg/errors"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"nhooyr.io/websocket"
 	"nhooyr.io/websocket/wsjson"
 )
 
-type message struct {
+type connectionMessage struct {
 	DownloadTotal int64         `json:"downloadTotal"`
 	UploadTotal   int64         `json:"uploadTotal"`
 	Connections   []Connections `json:"connections"`
 }
+
 type Metadata struct {
 	Network         string `json:"network"`
 	Type            string `json:"type"`
@@ -56,6 +58,7 @@ func (c *Connection) Name() string {
 }
 
 func (c *Connection) Collect(config CollectConfig) error {
+	log.Println("starting collector:", c.Name())
 	ctx := context.Background()
 	endpoint := fmt.Sprintf("ws://%s/connections", config.ClashHost)
 	if config.ClashToken != "" {
@@ -70,7 +73,7 @@ func (c *Connection) Collect(config CollectConfig) error {
 
 	defer conn.Close(websocket.StatusInternalError, "the sky is falling")
 	for {
-		var m message
+		var m connectionMessage
 		err = wsjson.Read(ctx, conn, &m)
 		if err != nil {
 			return errors.Wrap(err, "failed to read JSON message")
@@ -140,5 +143,5 @@ func init() {
 	prometheus.MustRegister(uploadTotal, downloadTotal, activeConnections, networkTrafficTotal)
 
 	c := &Connection{connectionCache: map[string]Connections{}}
-	register(c)
+	Register(c)
 }

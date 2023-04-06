@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1680451645557,
+  "iteration": 1680766705602,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -63,9 +63,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -86,7 +84,6 @@
         }
       ],
       "title": "总下载量",
-      "transparent": true,
       "type": "stat"
     },
     {
@@ -126,9 +123,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -149,7 +144,6 @@
         }
       ],
       "title": "总上传量",
-      "transparent": true,
       "type": "stat"
     },
     {
@@ -182,6 +176,66 @@
         "x": 6,
         "y": 0
       },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "pFTR9jf4k"
+          },
+          "exemplar": true,
+          "expr": "sum(clash_tracing_dns_request_duration_milliseconds_count)",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "DNS 请求数",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 9,
+        "y": 0
+      },
       "id": 6,
       "options": {
         "colorMode": "value",
@@ -189,9 +243,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -212,7 +264,6 @@
         }
       ],
       "title": "连接数",
-      "transparent": true,
       "type": "stat"
     },
     {
@@ -273,16 +324,13 @@
       "gridPos": {
         "h": 4,
         "w": 12,
-        "x": 9,
+        "x": 12,
         "y": 0
       },
       "id": 18,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right"
         },
@@ -318,7 +366,6 @@
         }
       ],
       "title": "实时网速",
-      "transparent": true,
       "type": "timeseries"
     },
     {
@@ -356,9 +403,7 @@
         "displayMode": "gradient",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -381,7 +426,6 @@
         }
       ],
       "title": "基于 source 流量",
-      "transparent": true,
       "type": "bargauge"
     },
     {
@@ -419,9 +463,7 @@
         "displayMode": "gradient",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -444,7 +486,6 @@
         }
       ],
       "title": "基于 policy 流量",
-      "transparent": true,
       "type": "bargauge"
     },
     {
@@ -482,9 +523,7 @@
         "displayMode": "gradient",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -507,7 +546,6 @@
         }
       ],
       "title": "基于 destination 流量 top10",
-      "transparent": true,
       "type": "bargauge"
     },
     {
@@ -520,8 +558,331 @@
       },
       "id": 9,
       "panels": [],
-      "title": "Row title",
+      "title": "Tracing",
       "type": "row"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 14
+      },
+      "id": 23,
+      "options": {
+        "legend": {
+          "calcs": ["lastNotNull", "max"],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "pFTR9jf4k"
+          },
+          "exemplar": true,
+          "expr": "sum(irate(clash_tracing_rule_match_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_rule_match_duration_milliseconds_count{}[1m]))",
+          "interval": "",
+          "legendFormat": "AVG",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "pFTR9jf4k"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_rule_match_duration_milliseconds_bucket{}[1m])) by (le))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "P99",
+          "refId": "B"
+        }
+      ],
+      "title": "Rule Match Duration",
+      "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 14
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": ["lastNotNull", "max"],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "pFTR9jf4k"
+          },
+          "exemplar": true,
+          "expr": "sum(irate(clash_tracing_proxy_dial_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_proxy_dial_duration_milliseconds_count{}[1m]))",
+          "interval": "",
+          "legendFormat": "AVG",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "pFTR9jf4k"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_proxy_dial_duration_milliseconds_bucket{}[1m])) by (le))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "P99",
+          "refId": "B"
+        }
+      ],
+      "title": "Proxy Dial Duration",
+      "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": ["P99"],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 22
+      },
+      "id": 21,
+      "options": {
+        "legend": {
+          "calcs": ["lastNotNull", "max"],
+          "displayMode": "table",
+          "placement": "right"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "pFTR9jf4k"
+          },
+          "exemplar": true,
+          "expr": "sum(irate(clash_tracing_dns_request_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_dns_request_duration_milliseconds_count{}[1m]))",
+          "interval": "",
+          "legendFormat": "AVG",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "pFTR9jf4k"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_dns_request_duration_milliseconds_bucket[1m])) by (le))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "P99",
+          "refId": "B"
+        }
+      ],
+      "title": "DNS Request Duration",
+      "type": "timeseries"
     }
   ],
   "refresh": "5s",
@@ -532,40 +893,11 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": ["All"],
+          "value": ["$__all"]
         },
         "definition": "label_values(clash_network_traffic_bytes_total, source)",
-        "error": {
-          "config": {
-            "data": {
-              "end": "1680451646",
-              "match[]": "clash_network_traffic_bytes_total",
-              "start": "1680451346"
-            },
-            "headers": {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "X-Grafana-Org-Id": 1
-            },
-            "hideFromInspector": true,
-            "method": "POST",
-            "retry": 0,
-            "url": "api/datasources/proxy/1/api/v1/series"
-          },
-          "data": {
-            "error": "Bad Gateway",
-            "message": "Bad Gateway",
-            "response": ""
-          },
-          "message": "Bad Gateway",
-          "status": 502,
-          "statusText": "Bad Gateway"
-        },
         "hide": 0,
         "includeAll": true,
         "multi": true,
@@ -583,40 +915,11 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": ["All"],
+          "value": ["$__all"]
         },
         "definition": "label_values(clash_network_traffic_bytes_total, policy)",
-        "error": {
-          "config": {
-            "data": {
-              "end": "1680451646",
-              "match[]": "clash_network_traffic_bytes_total",
-              "start": "1680451346"
-            },
-            "headers": {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "X-Grafana-Org-Id": 1
-            },
-            "hideFromInspector": true,
-            "method": "POST",
-            "retry": 0,
-            "url": "api/datasources/proxy/1/api/v1/series"
-          },
-          "data": {
-            "error": "Bad Gateway",
-            "message": "Bad Gateway",
-            "response": ""
-          },
-          "message": "Bad Gateway",
-          "status": 502,
-          "statusText": "Bad Gateway"
-        },
         "hide": 0,
         "includeAll": true,
         "label": "policy",
@@ -635,40 +938,11 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": ["All"],
+          "value": ["$__all"]
         },
         "definition": "label_values(clash_network_traffic_bytes_total, type)",
-        "error": {
-          "config": {
-            "data": {
-              "end": "1680451646",
-              "match[]": "clash_network_traffic_bytes_total",
-              "start": "1680451346"
-            },
-            "headers": {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "X-Grafana-Org-Id": 1
-            },
-            "hideFromInspector": true,
-            "method": "POST",
-            "retry": 0,
-            "url": "api/datasources/proxy/1/api/v1/series"
-          },
-          "data": {
-            "error": "Bad Gateway",
-            "message": "Bad Gateway",
-            "response": ""
-          },
-          "message": "Bad Gateway",
-          "status": 502,
-          "statusText": "Bad Gateway"
-        },
         "hide": 0,
         "includeAll": true,
         "label": "type",
@@ -695,6 +969,6 @@
   "timezone": "",
   "title": "Clash dashboard",
   "uid": "-pEeJqf4k",
-  "version": 7,
+  "version": 12,
   "weekStart": ""
 }
