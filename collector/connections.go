@@ -100,7 +100,7 @@ func (c *Connection) Collect(config CollectConfig) error {
 			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, connection.Chains[0], "upload").Add(float64(connection.Upload) - float64(c.connectionCache[connection.ID].Upload))
 			c.connectionCache[connection.ID] = connection
 		}
-
+		// TODO: remove closed connections cache
 	}
 }
 

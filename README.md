@@ -14,7 +14,7 @@ Usage of ./clash-exporter:
         Warning: if collector destination enabled, will generate a large number of metrics, which may put a lot of pressure on Prometheus. (default true)
   -collectTracing
         enable collector tracing.
-        It must be the Clash premium version, and the profile.tracing must be enabled in the Clash configuration file. (default true)
+        It must be the Clash premium version, and the profile.tracing must be enabled in the Clash configuration file. (default false)
   -port int
         port to listen on (default 2112)
 ```
@@ -22,7 +22,9 @@ Usage of ./clash-exporter:
 #### use by docker
 
 ```sh
-docker run -d --name clash-exporter -p 2112:2112 -e CLASH_HOST="${CLASH_HOST}" -e CLASH_TOKEN="$CLASH_TOKEN" ghcr.io/zxh326/clash-exporter:latest
+CLASH_HOST=127.0.0.1:9090
+CLASH_TOKEN=pass
+docker run -d --name clash-exporter -p 2112:2112 -e CLASH_HOST="${CLASH_HOST}" -e CLASH_TOKEN="$CLASH_TOKEN" zzde/clash-exporter:latest
 ```
 
 ####
@@ -54,6 +56,18 @@ You can import [clash-dashboard.json](./grafana/dashboard.json) to obtain the ex
 | clash_tracing_rule_match_duration_milliseconds  | Histogram   |                                                                     |
 | clash_tracing_dns_request_duration_milliseconds | Histogram   | `type(dnsType)`                                                     |
 | clash_tracing_proxy_dial_duration_milliseconds  | Histogram   |                                                                     |
+
+### FAQ
+
+- tracing metrics is empty
+
+  - Required clash premium version
+  - Follow [clash profile docs](https://github.com/Dreamacro/clash/wiki/Clash-Premium-Features#tracing) enable profile tracing
+  - Add `-collectTracing=true` flag in clash-exporter start script
+
+- high Prometheus Memory
+
+  This may be caused by the default enable of collector destination traffic, which can generate a large number of metrics. Try use `-collectDest=false` disable it.
 
 ### TODO
 

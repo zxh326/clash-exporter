@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net/http"
 
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
@@ -45,9 +46,12 @@ func (t *Tracing) Collect(config CollectConfig) error {
 	if config.ClashToken != "" {
 		endpoint = fmt.Sprintf("%s?token=%s", endpoint, config.ClashToken)
 	}
-	conn, _, err := websocket.Dial(ctx, endpoint, nil)
+	conn, resp, err := websocket.Dial(ctx, endpoint, nil)
 	if err != nil {
-		log.Fatal("failed to dial: ", err)
+		if resp.StatusCode == http.StatusNotFound {
+			log.Fatal("profile tracing is not enabled in Clash, please enable it first, or use `-collectTracing=false` disable this collector. \nFYI: https://github.com/Dreamacro/clash/wiki/Clash-Premium-Features#tracing")
+		}
+		log.Fatal("tracing: failed to dial: ", err)
 	}
 
 	conn.SetReadLimit(1024 * 1024)
