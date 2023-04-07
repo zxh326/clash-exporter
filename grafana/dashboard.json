@@ -22,10 +22,105 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1680766705602,
+  "iteration": 1680855889239,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "version"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 94
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 24,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": ["sum"],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "pFTR9jf4k"
+          },
+          "exemplar": false,
+          "expr": "max (clash_info) by (version, premium)",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "版本",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 3,
+              "premium": 2,
+              "version": 1
+            },
+            "renameByName": {}
+          }
+        }
+      ],
+      "type": "table"
+    },
     {
       "fieldConfig": {
         "defaults": {
@@ -53,7 +148,7 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 0,
+        "x": 3,
         "y": 0
       },
       "id": 2,
@@ -113,7 +208,7 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 3,
+        "x": 6,
         "y": 0
       },
       "id": 3,
@@ -173,7 +268,7 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 6,
+        "x": 9,
         "y": 0
       },
       "id": 19,
@@ -233,7 +328,7 @@
       "gridPos": {
         "h": 4,
         "w": 3,
-        "x": 9,
+        "x": 12,
         "y": 0
       },
       "id": 6,
@@ -323,8 +418,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 12,
-        "x": 12,
+        "w": 9,
+        "x": 15,
         "y": 0
       },
       "id": 18,
@@ -893,7 +988,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": ["All"],
           "value": ["$__all"]
         },
@@ -915,7 +1010,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": ["All"],
           "value": ["$__all"]
         },
@@ -938,7 +1033,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": ["All"],
           "value": ["$__all"]
         },
@@ -969,6 +1064,6 @@
   "timezone": "",
   "title": "Clash dashboard",
   "uid": "-pEeJqf4k",
-  "version": 12,
+  "version": 13,
   "weekStart": ""
 }

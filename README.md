@@ -49,13 +49,14 @@ You can import [clash-dashboard.json](./grafana/dashboard.json) to obtain the ex
 
 | Metric name                                     | Metric type | Labels                                                              |
 | ----------------------------------------------- | ----------- | ------------------------------------------------------------------- |
+| clash_info                                      | Gauge       | `version`, `premium`                                                |
 | clash_download_bytes_total                      | Gauge       |                                                                     |
 | clash_upload_bytes_total                        | Gauge       |                                                                     |
 | clash_active_connections                        | Gauge       |                                                                     |
-| clash_network_traffic_bytes_total               | Counter     | `soruce`,`destination(if enabled)`,`policy`,`type(download,upload)` |
+| clash_network_traffic_bytes_total               | Counter     | `source`,`destination(if enabled)`,`policy`,`type(download,upload)` |
 | clash_tracing_rule_match_duration_milliseconds  | Histogram   |                                                                     |
 | clash_tracing_dns_request_duration_milliseconds | Histogram   | `type(dnsType)`                                                     |
-| clash_tracing_proxy_dial_duration_milliseconds  | Histogram   |                                                                     |
+| clash_tracing_proxy_dial_duration_milliseconds  | Histogram   | `policy`                                                            |
 
 ### FAQ
 
