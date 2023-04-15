@@ -1,9 +1,55 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.4.7"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,12 +67,15 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1681532673533,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -35,8 +84,11 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
-            "filterable": false
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -62,7 +114,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 94
+                "value": 100
               }
             ]
           }
@@ -77,6 +129,7 @@
       "id": 24,
       "options": {
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -86,12 +139,12 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "max (clash_info) by (version, premium)",
@@ -124,6 +177,10 @@
       "type": "table"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -168,12 +225,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "clash_download_bytes_total",
@@ -186,6 +243,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -230,12 +291,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "clash_upload_bytes_total",
@@ -248,6 +309,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -292,12 +357,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum(clash_tracing_dns_request_duration_milliseconds_count)",
@@ -310,6 +375,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -354,12 +423,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "clash_active_connections",
@@ -372,12 +441,18 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -440,17 +515,19 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum(rate(clash_network_traffic_bytes_total{type=\"download\"}[30s]))",
@@ -462,7 +539,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum(rate(clash_network_traffic_bytes_total{type=\"upload\"}[1m]))",
@@ -477,6 +554,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -484,8 +565,11 @@
           },
           "custom": {
             "align": "right",
-            "displayMode": "auto",
-            "filterable": false
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -523,8 +607,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "gradient-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
               }
             ]
           }
@@ -539,6 +626,7 @@
       "id": 5,
       "options": {
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -554,20 +642,22 @@
           }
         ]
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "exemplar": false,
           "expr": "sum by (source) (clash_network_traffic_bytes_total{source=~\"$source\", policy=~\"$policy\", type=~\"$type\"})",
           "format": "table",
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "来源",
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "A"
         }
       ],
@@ -582,7 +672,10 @@
             },
             "indexByName": {},
             "renameByName": {
-              "Value #A": "总流量"
+              "Time": "",
+              "Value": "总流量",
+              "Value #A": "总流量",
+              "source": "来源"
             }
           }
         }
@@ -590,6 +683,10 @@
       "type": "table"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -597,8 +694,11 @@
           },
           "custom": {
             "align": "right",
-            "displayMode": "auto",
-            "filterable": false
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -636,8 +736,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "gradient-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
               }
             ]
           },
@@ -664,6 +767,7 @@
       "id": 25,
       "options": {
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -679,12 +783,12 @@
           }
         ]
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "sum by (policy) (clash_network_traffic_bytes_total{source=~\"$source\", policy=~\"$policy\", type=~\"$type\"})",
@@ -707,7 +811,9 @@
             },
             "indexByName": {},
             "renameByName": {
-              "Value #A": "总流量"
+              "Value": "总流量",
+              "Value #A": "总流量",
+              "policy": "策略"
             }
           }
         }
@@ -715,6 +821,10 @@
       "type": "table"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -722,8 +832,11 @@
           },
           "custom": {
             "align": "right",
-            "displayMode": "auto",
-            "filterable": false
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -761,8 +874,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "gradient-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "gauge"
+                }
               }
             ]
           },
@@ -801,6 +917,7 @@
       "id": 26,
       "options": {
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -816,12 +933,12 @@
           }
         ]
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": false,
           "expr": "topk(10, sort_desc(sum by (destination) (clash_network_traffic_bytes_total{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"})))",
@@ -844,7 +961,9 @@
             },
             "indexByName": {},
             "renameByName": {
-              "Value #A": "总流量"
+              "Value": "总流量",
+              "Value #A": "总流量",
+              "destination": "目的地"
             }
           }
         }
@@ -853,6 +972,10 @@
     },
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Xanmf7P4k"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -861,16 +984,31 @@
       },
       "id": 9,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Xanmf7P4k"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Tracing",
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "left",
             "barAlignment": 0,
@@ -933,17 +1071,19 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum(irate(clash_tracing_rule_match_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_rule_match_duration_milliseconds_count{}[1m]))",
@@ -954,7 +1094,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_rule_match_duration_milliseconds_bucket{}[1m])) by (le))",
@@ -968,12 +1108,18 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "left",
             "barAlignment": 0,
@@ -1036,17 +1182,19 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum(irate(clash_tracing_proxy_dial_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_proxy_dial_duration_milliseconds_count{}[1m]))",
@@ -1057,7 +1205,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_proxy_dial_duration_milliseconds_bucket{}[1m])) by (le))",
@@ -1071,12 +1219,18 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "left",
             "barAlignment": 0,
@@ -1139,17 +1293,19 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum(irate(clash_tracing_dns_request_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_dns_request_duration_milliseconds_count{}[1m]))",
@@ -1160,7 +1316,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "pFTR9jf4k"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_dns_request_duration_milliseconds_bucket[1m])) by (le))",
@@ -1175,20 +1331,17 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 34,
+  "revision": 1,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(clash_network_traffic_bytes_total, source)",
         "hide": 0,
@@ -1207,14 +1360,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(clash_network_traffic_bytes_total, policy)",
         "hide": 0,
@@ -1234,14 +1383,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(clash_network_traffic_bytes_total, type)",
         "hide": 0,
@@ -1270,6 +1415,6 @@
   "timezone": "",
   "title": "Clash dashboard",
   "uid": "-pEeJqf4k",
-  "version": 18,
+  "version": 2,
   "weekStart": ""
 }
