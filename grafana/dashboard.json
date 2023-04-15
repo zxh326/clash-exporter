@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1680855889239,
+  "iteration": 1681532673533,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -78,7 +78,9 @@
       "options": {
         "footer": {
           "fields": "",
-          "reducer": ["sum"],
+          "reducer": [
+            "sum"
+          ],
           "show": false
         },
         "showHeader": true,
@@ -147,7 +149,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
+        "w": 2,
         "x": 3,
         "y": 0
       },
@@ -158,7 +160,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -207,8 +211,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 6,
+        "w": 2,
+        "x": 5,
         "y": 0
       },
       "id": 3,
@@ -218,7 +222,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -267,8 +273,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 9,
+        "w": 2,
+        "x": 7,
         "y": 0
       },
       "id": 19,
@@ -278,7 +284,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -327,8 +335,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 3,
-        "x": 12,
+        "w": 2,
+        "x": 9,
         "y": 0
       },
       "id": 6,
@@ -338,7 +346,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": ["lastNotNull"],
+          "calcs": [
+            "lastNotNull"
+          ],
           "fields": "",
           "values": false
         },
@@ -418,14 +428,17 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 9,
-        "x": 15,
+        "w": 13,
+        "x": 11,
         "y": 0
       },
       "id": 18,
       "options": {
         "legend": {
-          "calcs": ["lastNotNull", "max"],
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "right"
         },
@@ -469,9 +482,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "right",
+            "displayMode": "auto",
+            "filterable": false
+          },
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
@@ -483,9 +501,34 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "decbits"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 98
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "总流量"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "gradient-gauge"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -495,14 +538,21 @@
       },
       "id": 5,
       "options": {
-        "displayMode": "gradient",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
+        "footer": {
           "fields": "",
-          "values": false
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "showUnfilled": true
+        "frameIndex": 18,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "总流量"
+          }
+        ]
       },
       "pluginVersion": "8.3.3",
       "targets": [
@@ -511,17 +561,33 @@
             "type": "prometheus",
             "uid": "pFTR9jf4k"
           },
-          "exemplar": true,
+          "exemplar": false,
           "expr": "sum by (source) (clash_network_traffic_bytes_total{source=~\"$source\", policy=~\"$policy\", type=~\"$type\"})",
-          "format": "time_series",
-          "instant": false,
+          "format": "table",
+          "instant": true,
           "interval": "",
-          "legendFormat": "{{ source }}",
+          "intervalFactor": 1,
+          "legendFormat": "来源",
           "refId": "A"
         }
       ],
-      "title": "基于 source 流量",
-      "type": "bargauge"
+      "title": "客户端总流量",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "source": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "总流量"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "fieldConfig": {
@@ -529,9 +595,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "right",
+            "displayMode": "auto",
+            "filterable": false
+          },
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
@@ -543,9 +614,46 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "decbits"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 148
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "总流量"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "gradient-gauge"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "policy"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -553,16 +661,23 @@
         "x": 8,
         "y": 4
       },
-      "id": 15,
+      "id": 25,
       "options": {
-        "displayMode": "gradient",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
+        "footer": {
           "fields": "",
-          "values": false
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "showUnfilled": true
+        "frameIndex": 18,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "总流量"
+          }
+        ]
       },
       "pluginVersion": "8.3.3",
       "targets": [
@@ -571,17 +686,33 @@
             "type": "prometheus",
             "uid": "pFTR9jf4k"
           },
-          "exemplar": true,
+          "exemplar": false,
           "expr": "sum by (policy) (clash_network_traffic_bytes_total{source=~\"$source\", policy=~\"$policy\", type=~\"$type\"})",
-          "format": "time_series",
-          "instant": false,
+          "format": "table",
+          "instant": true,
           "interval": "",
-          "legendFormat": "{{ policy }}",
+          "intervalFactor": 1,
+          "legendFormat": "来源",
           "refId": "A"
         }
       ],
-      "title": "基于 policy 流量",
-      "type": "bargauge"
+      "title": "代理总流量",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "source": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "总流量"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "fieldConfig": {
@@ -589,9 +720,14 @@
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "right",
+            "displayMode": "auto",
+            "filterable": false
+          },
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
@@ -603,9 +739,58 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "decbits"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 148
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "总流量"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "gradient-gauge"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "policy"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "destination"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 221
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 9,
@@ -613,16 +798,23 @@
         "x": 16,
         "y": 4
       },
-      "id": 16,
+      "id": 26,
       "options": {
-        "displayMode": "gradient",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
+        "footer": {
           "fields": "",
-          "values": false
+          "reducer": [
+            "sum"
+          ],
+          "show": false
         },
-        "showUnfilled": true
+        "frameIndex": 18,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "总流量"
+          }
+        ]
       },
       "pluginVersion": "8.3.3",
       "targets": [
@@ -631,17 +823,33 @@
             "type": "prometheus",
             "uid": "pFTR9jf4k"
           },
-          "exemplar": true,
+          "exemplar": false,
           "expr": "topk(10, sort_desc(sum by (destination) (clash_network_traffic_bytes_total{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"})))",
-          "format": "time_series",
-          "instant": false,
+          "format": "table",
+          "instant": true,
           "interval": "",
-          "legendFormat": "{{ destination }}",
+          "intervalFactor": 1,
+          "legendFormat": "来源",
           "refId": "A"
         }
       ],
-      "title": "基于 destination 流量 top10",
-      "type": "bargauge"
+      "title": "目的地总流量",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "source": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "总流量"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "collapsed": false,
@@ -720,7 +928,10 @@
       "id": 23,
       "options": {
         "legend": {
-          "calcs": ["lastNotNull", "max"],
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "right"
         },
@@ -820,7 +1031,10 @@
       "id": 22,
       "options": {
         "legend": {
-          "calcs": ["lastNotNull", "max"],
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "right"
         },
@@ -909,30 +1123,7 @@
           },
           "unit": "ms"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": ["P99"],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -943,7 +1134,10 @@
       "id": 21,
       "options": {
         "legend": {
-          "calcs": ["lastNotNull", "max"],
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
           "displayMode": "table",
           "placement": "right"
         },
@@ -989,8 +1183,12 @@
       {
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "definition": "label_values(clash_network_traffic_bytes_total, source)",
         "hide": 0,
@@ -1011,8 +1209,12 @@
       {
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "definition": "label_values(clash_network_traffic_bytes_total, policy)",
         "hide": 0,
@@ -1034,8 +1236,12 @@
       {
         "current": {
           "selected": true,
-          "text": ["All"],
-          "value": ["$__all"]
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "definition": "label_values(clash_network_traffic_bytes_total, type)",
         "hide": 0,
@@ -1064,6 +1270,6 @@
   "timezone": "",
   "title": "Clash dashboard",
   "uid": "-pEeJqf4k",
-  "version": 13,
+  "version": 18,
   "weekStart": ""
 }
