@@ -45,8 +45,7 @@ visit http://localhost:2112/metrics and configure prometheus to scrape this endp
 
 - You can import [clash-dashboard.json](./grafana/dashboard.json) to obtain the example effect, or you can create one yourself based on the following metrics introduction.
 
-- or Import via grafana.com with id `18530`
-
+- or Import via [grafana.com](https://grafana.com/grafana/dashboards/18530-clash-dashboard/) with id `18530`
 
 ### Metrics
 
