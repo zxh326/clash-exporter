@@ -39,7 +39,6 @@ func Start(config CollectConfig) {
 				}
 				break
 			}
-			log.Fatal("collector: ", c.Name(), " failed after ", maxRetry, " retries, exit")
 		}(c)
 	}
 }
