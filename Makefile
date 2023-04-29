@@ -1,6 +1,5 @@
 NAME=clash-exporter
 VERSION=$(shell git describe --tags --always)
-BINARY_NAME := $(NAME)-$(VERSION)-{{.GOOS}}-{{.GOARCH}}
 
 releases: darwin-amd64 darwin-arm64 linux-amd64 linux-arm64 linux-armv6 linux-armv7
 
