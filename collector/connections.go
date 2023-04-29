@@ -82,6 +82,7 @@ func (c *Connection) Collect(config CollectConfig) error {
 		downloadTotal.WithLabelValues().Set(float64(m.DownloadTotal))
 		activeConnections.WithLabelValues().Set(float64(len(m.Connections)))
 
+		activeConnectionsMap := make(map[string]interface{})
 		for _, connection := range m.Connections {
 			if _, ok := c.connectionCache[connection.ID]; !ok {
 				c.connectionCache[connection.ID] = Connections{
@@ -99,8 +100,13 @@ func (c *Connection) Collect(config CollectConfig) error {
 			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, connection.Chains[0], "download").Add(float64(connection.Download) - float64(c.connectionCache[connection.ID].Download))
 			networkTrafficTotal.WithLabelValues(connection.Metadata.SourceIP, destination, connection.Chains[0], "upload").Add(float64(connection.Upload) - float64(c.connectionCache[connection.ID].Upload))
 			c.connectionCache[connection.ID] = connection
+			activeConnectionsMap[connection.ID] = nil
 		}
-		// TODO: remove closed connections cache
+		for id := range c.connectionCache {
+			if _, ok := activeConnectionsMap[id]; !ok {
+				delete(c.connectionCache, id)
+			}
+		}
 	}
 }
 
