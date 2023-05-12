@@ -2,11 +2,24 @@
 
 This is an exporter for Clash, for used by the [Prometheus](https://prometheus.io/) to monitor clash network traffic.
 
-![](./images/grafana.png)
+<table>
+<tr>
+<td>
+<img src='https://user-images.githubusercontent.com/21299255/237983272-46fa121e-3395-4e12-919a-52bc73e90ec0.png' />
+</td>
+<td>
+<img src='https://user-images.githubusercontent.com/21299255/237983285-0363e138-bd76-4e3b-a4a9-dcf3e92a182b.png' />
+</td>
+</tr>
+</table>
 
 ### Usage
 
-```
+#### run in command
+
+Go to https://github.com/zxh326/clash-exporter/releases download latest release binary file
+
+```sh
 ➜  ./clash-exporter -h
 Usage of ./clash-exporter:
   -collectDest
@@ -19,17 +32,19 @@ Usage of ./clash-exporter:
         port to listen on (default 2112)
 ```
 
-#### use by docker
+#### deploy with docker compose
 
 ```sh
-CLASH_HOST=127.0.0.1:9090
-CLASH_TOKEN=pass
-docker run -d --name clash-exporter -p 2112:2112 -e CLASH_HOST="${CLASH_HOST}" -e CLASH_TOKEN="$CLASH_TOKEN" zzde/clash-exporter:latest
+git clone https://github.com/zxh326/clash-exporter
+
+# check docker-compose.yml and update environment
+cat docker-compose.yml
+docker compose up -d
 ```
 
-####
+visit `localhost:3000` and import [example dashboard](./grafana/dashboard.json) or via id `18530`
 
-visit http://localhost:2112/metrics and configure prometheus to scrape this endpoint.
+> tips: grafana default username / password is admin/admin
 
 ### Prometheus Example Config
 
@@ -39,6 +54,16 @@ visit http://localhost:2112/metrics and configure prometheus to scrape this endp
   scrape_interval: 1s
   static_configs:
     - targets: ["127.0.0.1:2112"]
+```
+
+#### Record Rule Config
+
+```
+groups:
+  - name: discard_destination
+    rules:
+      - record: source_policy_type:clash_network_traffic_bytes_total:sum
+        expr: sum without (destination, job) (clash_network_traffic_bytes_total)
 ```
 
 ### Grafana Example Dashboard

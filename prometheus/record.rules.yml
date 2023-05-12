@@ -1,0 +1,5 @@
+groups:
+  - name: discard_destination
+    rules:
+      - record: source_policy_type:clash_network_traffic_bytes_total:sum
+        expr: sum without (destination, job) (clash_network_traffic_bytes_total)
