@@ -5,12 +5,10 @@ on:
     # Publish `main` as Docker `latest` image.
     branches:
       - main
-      - seed
 
     # Publish `v1.2.3` tags as releases.
     tags:
       - v*
-
 env:
   IMAGE_NAME: clash-exporter
 
@@ -19,6 +17,7 @@ jobs:
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'zxh326' }}
     permissions:
       packages: write
       contents: read

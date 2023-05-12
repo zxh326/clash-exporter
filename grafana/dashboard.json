@@ -64,13 +64,28 @@
       }
     ]
   },
+  "description": "Clash exporter example dashboard",
   "editable": true,
   "fiscalYearStartMonth": 0,
+  "gnetId": 18530,
   "graphTooltip": 0,
   "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 28,
+      "panels": [],
+      "title": "Overview",
+      "type": "row"
+    },
     {
       "datasource": {
         "type": "prometheus",
@@ -124,16 +139,15 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 24,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "showHeader": true,
@@ -208,7 +222,7 @@
         "h": 4,
         "w": 2,
         "x": 3,
-        "y": 0
+        "y": 1
       },
       "id": 2,
       "options": {
@@ -217,9 +231,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -274,7 +286,7 @@
         "h": 4,
         "w": 2,
         "x": 5,
-        "y": 0
+        "y": 1
       },
       "id": 3,
       "options": {
@@ -283,9 +295,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -340,7 +350,7 @@
         "h": 4,
         "w": 2,
         "x": 7,
-        "y": 0
+        "y": 1
       },
       "id": 19,
       "options": {
@@ -349,9 +359,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -406,7 +414,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 0
+        "y": 1
       },
       "id": 6,
       "options": {
@@ -415,9 +423,7 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
+          "calcs": ["lastNotNull"],
           "fields": "",
           "values": false
         },
@@ -505,15 +511,12 @@
         "h": 4,
         "w": 13,
         "x": 11,
-        "y": 0
+        "y": 1
       },
       "id": 18,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
+          "calcs": ["lastNotNull", "max"],
           "displayMode": "table",
           "placement": "right",
           "showLegend": true
@@ -529,11 +532,13 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum(rate(clash_network_traffic_bytes_total{type=\"download\"}[30s]))",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "download",
+          "range": true,
           "refId": "A"
         },
         {
@@ -541,12 +546,14 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum(rate(clash_network_traffic_bytes_total{type=\"upload\"}[1m]))",
           "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "upload",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -621,16 +628,15 @@
         "h": 9,
         "w": 8,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "id": 5,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "frameIndex": 18,
@@ -762,16 +768,15 @@
         "h": 9,
         "w": 8,
         "x": 8,
-        "y": 4
+        "y": 5
       },
       "id": 25,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "frameIndex": 18,
@@ -912,16 +917,15 @@
         "h": 9,
         "w": 8,
         "x": 16,
-        "y": 4
+        "y": 5
       },
       "id": 26,
       "options": {
+        "cellHeight": "sm",
         "footer": {
           "countRows": false,
           "fields": "",
-          "reducer": [
-            "sum"
-          ],
+          "reducer": ["sum"],
           "show": false
         },
         "frameIndex": 18,
@@ -972,28 +976,15 @@
     },
     {
       "collapsed": false,
-      "datasource": {
-        "type": "prometheus",
-        "uid": "Xanmf7P4k"
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 14
       },
-      "id": 9,
+      "id": 29,
       "panels": [],
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "Xanmf7P4k"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "Tracing",
+      "title": "Traffic Statistics",
       "type": "row"
     },
     {
@@ -1004,40 +995,17 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "left",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+            "align": "auto",
+            "cellOptions": {
+              "mode": "lcd",
+              "type": "gauge",
+              "valueDisplayMode": "color"
             },
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -1053,42 +1021,63 @@
               }
             ]
           },
-          "unit": "ms"
+          "unit": "decbytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "policy"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 14
+        "y": 15
       },
-      "id": 23,
+      "id": 27,
       "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
+        "cellHeight": "md",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": [],
+          "reducer": ["sum"],
+          "show": true
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "1小时"
+          }
+        ]
       },
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "exemplar": true,
-          "expr": "sum(irate(clash_tracing_rule_match_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_rule_match_duration_milliseconds_count{}[1m]))",
-          "interval": "",
-          "legendFormat": "AVG",
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (policy) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[1h]))",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "A"
         },
         {
@@ -1096,16 +1085,103 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_rule_match_duration_milliseconds_bucket{}[1m])) by (le))",
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (policy) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[3h]))",
+          "format": "table",
           "hide": false,
-          "interval": "",
-          "legendFormat": "P99",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (policy) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[6h]))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (policy) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[1d]))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (policy) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[5m]))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
         }
       ],
-      "title": "Rule Match Duration",
-      "type": "timeseries"
+      "title": "策略流量统计",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "policy",
+            "mode": "outer"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Time 1": true,
+              "Time 2": false
+            },
+            "indexByName": {
+              "Time 1": 2,
+              "Time 2": 4,
+              "Time 3": 6,
+              "Time 4": 8,
+              "Time 5": 10,
+              "Value #A": 3,
+              "Value #B": 5,
+              "Value #C": 7,
+              "Value #D": 9,
+              "Value #E": 1,
+              "policy": 0
+            },
+            "renameByName": {
+              "Value #A": "1小时",
+              "Value #B": "3小时",
+              "Value #C": "6小时",
+              "Value #D": "1天",
+              "Value #E": "5分钟"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -1115,48 +1191,24 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "left",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+            "align": "auto",
+            "cellOptions": {
+              "mode": "lcd",
+              "type": "gauge",
+              "valueDisplayMode": "color"
             },
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1164,42 +1216,63 @@
               }
             ]
           },
-          "unit": "ms"
+          "unit": "decbytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "source"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 14
+        "w": 24,
+        "x": 0,
+        "y": 23
       },
-      "id": 22,
+      "id": 30,
       "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
+        "cellHeight": "md",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": [],
+          "reducer": ["sum"],
+          "show": true
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "1天"
+          }
+        ]
       },
+      "pluginVersion": "9.4.7",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "exemplar": true,
-          "expr": "sum(irate(clash_tracing_proxy_dial_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_proxy_dial_duration_milliseconds_count{}[1m]))",
-          "interval": "",
-          "legendFormat": "AVG",
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (source) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[1h]))",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "A"
         },
         {
@@ -1207,127 +1280,454 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_proxy_dial_duration_milliseconds_bucket{}[1m])) by (le))",
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (source) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[3h]))",
+          "format": "table",
           "hide": false,
-          "interval": "",
-          "legendFormat": "P99",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (source) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[6h]))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (source) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[1d]))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (source) (increase(source_policy_type:clash_network_traffic_bytes_total:sum{source=~\"$source\", policy=~\"$policy\",type=~\"$type\"}[5m]))",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
         }
       ],
-      "title": "Proxy Dial Duration",
-      "type": "timeseries"
+      "title": "客户端流量统计",
+      "transformations": [
+        {
+          "id": "joinByField",
+          "options": {
+            "byField": "source",
+            "mode": "outer"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Time 1": true,
+              "Time 2": false
+            },
+            "indexByName": {
+              "Time 1": 1,
+              "Time 2": 4,
+              "Time 3": 6,
+              "Time 4": 8,
+              "Time 5": 10,
+              "Time 6": 12,
+              "Value #A": 3,
+              "Value #B": 5,
+              "Value #C": 7,
+              "Value #D": 9,
+              "Value #E": 11,
+              "Value #F": 2,
+              "source": 0
+            },
+            "renameByName": {
+              "Value #A": "1小时",
+              "Value #B": "3小时",
+              "Value #C": "6小时",
+              "Value #D": "1天",
+              "Value #E": "总共",
+              "Value #F": "5分钟"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
+      "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "left",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "ms"
-        },
-        "overrides": []
+        "uid": "Xanmf7P4k"
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 1,
+        "w": 24,
         "x": 0,
-        "y": 22
+        "y": 31
       },
-      "id": 21,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "max"
+      "id": 9,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "left",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 32
+          },
+          "id": 23,
+          "options": {
+            "legend": {
+              "calcs": ["lastNotNull", "max"],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "sum(irate(clash_tracing_rule_match_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_rule_match_duration_milliseconds_count{}[1m]))",
+              "interval": "",
+              "legendFormat": "AVG",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_rule_match_duration_milliseconds_bucket{}[1m])) by (le))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "P99",
+              "refId": "B"
+            }
           ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true
+          "title": "Rule Match Duration",
+          "type": "timeseries"
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "left",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 32
+          },
+          "id": 22,
+          "options": {
+            "legend": {
+              "calcs": ["lastNotNull", "max"],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "sum(irate(clash_tracing_proxy_dial_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_proxy_dial_duration_milliseconds_count{}[1m]))",
+              "interval": "",
+              "legendFormat": "AVG",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_proxy_dial_duration_milliseconds_bucket{}[1m])) by (le))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "P99",
+              "refId": "B"
+            }
+          ],
+          "title": "Proxy Dial Duration",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "left",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineStyle": {
+                  "fill": "solid"
+                },
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 40
+          },
+          "id": 21,
+          "options": {
+            "legend": {
+              "calcs": ["lastNotNull", "max"],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "sum(irate(clash_tracing_dns_request_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_dns_request_duration_milliseconds_count{}[1m]))",
+              "interval": "",
+              "legendFormat": "AVG",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_dns_request_duration_milliseconds_bucket[1m])) by (le))",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "P99",
+              "refId": "B"
+            }
+          ],
+          "title": "DNS Request Duration",
+          "type": "timeseries"
         }
-      },
+      ],
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "Xanmf7P4k"
           },
-          "exemplar": true,
-          "expr": "sum(irate(clash_tracing_dns_request_duration_milliseconds_sum{}[1m])) / sum(irate(clash_tracing_dns_request_duration_milliseconds_count{}[1m]))",
-          "interval": "",
-          "legendFormat": "AVG",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum(irate(clash_tracing_dns_request_duration_milliseconds_bucket[1m])) by (le))",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "P99",
-          "refId": "B"
         }
       ],
-      "title": "DNS Request Duration",
-      "type": "timeseries"
+      "title": "Tracing Duration",
+      "type": "row"
     }
   ],
   "refresh": "5s",
@@ -1415,6 +1815,6 @@
   "timezone": "",
   "title": "Clash dashboard",
   "uid": "-pEeJqf4k",
-  "version": 2,
+  "version": 13,
   "weekStart": ""
 }
