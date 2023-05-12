@@ -5,10 +5,10 @@ This is an exporter for Clash, for used by the [Prometheus](https://prometheus.i
 <table>
 <tr>
 <td>
-<img src='./images/preview1.png' />
+<img src='https://user-images.githubusercontent.com/21299255/237983272-46fa121e-3395-4e12-919a-52bc73e90ec0.png' />
 </td>
 <td>
-<img src='./images/preview2.png' />
+<img src='https://user-images.githubusercontent.com/21299255/237983285-0363e138-bd76-4e3b-a4a9-dcf3e92a182b.png' />
 </td>
 </tr>
 </table>
