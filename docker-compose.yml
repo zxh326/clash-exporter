@@ -22,7 +22,7 @@ services:
     image: zzde/clash-exporter:latest
     container_name: clash-exporter
     entrypoint:
-      ["/app/clash-exporter", "-collectTracing", "true", "-collectDest", "true"]
+      ["/app/clash-exporter", "-collectTracing=true", "-collectDest=true"]
     environment:
       - CLASH_HOST=12.0.0.1:9090
       - CLASH_TOKEN=
