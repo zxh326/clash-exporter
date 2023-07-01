@@ -23,21 +23,24 @@ func Register(c Collector) {
 	collectors = append(collectors, c)
 }
 
-var maxRetry = 3
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
 
 func Start(config CollectConfig) {
 	for _, c := range collectors {
 		go func(c Collector) {
 			retryCount := 0
-			for retryCount < maxRetry {
+			for {
 				if err := c.Collect(config); err != nil {
 					retryCount++
-					sleepDuration := time.Duration(retryCount) * 10 * time.Second
-					log.Println("collector:", c.Name(), "failed, retry after", sleepDuration, "error: ", err)
+					sleepDuration := time.Duration(min(retryCount*10, 60)) * time.Second
+					log.Println("collector:", c.Name(), "failed error: ", err, "retry after", sleepDuration)
 					time.Sleep(sleepDuration)
-					continue
 				}
-				break
 			}
 		}(c)
 	}

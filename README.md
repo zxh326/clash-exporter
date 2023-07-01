@@ -42,7 +42,10 @@ cat docker-compose.yml
 docker compose up -d
 ```
 
-visit `localhost:3000` and import [example dashboard](./grafana/dashboard.json) or via id `18530`
+
+- visit `localhost:2112/metrics` to check metrics
+- visit `localhost:3000` [add prometheus data source first](https://grafana.com/docs/grafana/latest/administration/data-source-management/)
+- visit `localhost:3000` and import [example dashboard](./grafana/dashboard.json) or via id `18530`
 
 > tips: grafana default username / password is admin/admin
 

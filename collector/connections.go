@@ -69,7 +69,7 @@ func (c *Connection) Collect(config CollectConfig) error {
 		log.Fatal("failed to dial: ", err)
 	}
 
-	conn.SetReadLimit(1024 * 1024)
+	conn.SetReadLimit(10 * 1024 * 1024)
 
 	defer conn.Close(websocket.StatusInternalError, "the sky is falling")
 	for {
