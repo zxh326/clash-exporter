@@ -28,4 +28,4 @@ services:
       - CLASH_TOKEN=
     restart: always
     ports:
-      - 2122:2122
+      - 2112:2112
