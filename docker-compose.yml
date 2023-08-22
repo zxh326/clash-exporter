@@ -13,6 +13,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     restart: always
+    user: root
     ports:
       - 9090:9090
     volumes:
